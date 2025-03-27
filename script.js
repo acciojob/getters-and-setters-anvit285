@@ -47,6 +47,12 @@ class Teacher extends Person
 //window.Teacher = Teacher;
 
 export { Person, Student, Teacher };
+"()=>{cy.visit(baseUrl + "/main.html");
+ cy.window().then(win => { cy.stub(win.console, "log").as("consoleLog"); 
+const Teacher = win.Teacher; 
+const teacher = new Teacher("Alice", 30); 
+expect(teacher.name).to.equal("Alice"); teacher.teach(); 
+cy.get("@consoleLog").should("be.calledWith", `${teacher.name} is teaching`); }); }"
 const person = new Person("John", 25);
 console.log(person.name); 
 
